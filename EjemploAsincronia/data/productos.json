@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nombre": "Galaxy",
+    "categoria": "SmartPhone",
+    "fabricante": "Samsung",
+    "precio": 31000,
+    "modelo": "S25",
+    "marca": "Samsung"
+  },
+  {
+    "id": 2,
+    "nombre": "Galaxy",
+    "categoria": "SmartPhone",
+    "fabricante": "Samsung",
+    "precio": 12000,
+    "modelo": "A10",
+    "marca": "Samsung"
+  },
+  {
+    "id": 3,
+    "nombre": "Iphone",
+    "categoria": "SmartPhone",
+    "fabricante": "Apple",
+    "precio": 15000,
+    "modelo": "XIII",
+    "marca": "Iphone"
+  },
+  {
+    "id": 4,
+    "nombre": "Iphone P",
+    "categoria": "SmartPhone",
+    "fabricante": "Apple",
+    "precio": 15000,
+    "modelo": "XIII",
+    "marca": "Iphone"
+  }
+]
