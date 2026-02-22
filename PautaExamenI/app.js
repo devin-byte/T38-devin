@@ -15,18 +15,37 @@ app.get("/libros",(req,res)=>{
 app.post("/libros",(req,res)=>{
 const{titulo,autor,anioPublicacion,estado} = req.body;
 
-if( titulo && autor && anioPublicacion && estado){
-    const nuevoLibro = {
-        id: libros.length + 1,
-        titulo,
-        autor,
-        anioPublicacion,
-        estado
-     }
+if( !titulo || !autor || !anioPublicacion || !estado){
+    return res.status(400).json({
+        status:400,
+        message:"todos los campos son obligatorios"
+    });
 }
+const nuevolibro={
+    id: libros.length + 1,
+    titulo,
+    autor,
+    anioPublicacion: parseInt(anioPublicacion),
+    estado
+};
+libros.push(nuevolibro);
+res.status(201).json({
+    status:201,
+    message:"libro creado",
+    data:nuevolibro
+})
+});
 
-libros.push(nuevoLibro);
-res.json({status:201,message:'Libro agregado',data:nuevoLibro});
+app.put("/libros/:id",(req,res)=>{
+    const id=parseInt(req.params.id);
+   const libro = libros.find(l => l.id === id);
+
+   if (!libro) {
+        return res.status(404).json({
+            status: 404,
+            message: "Libro no encontrado"
+        });
+    }
 })
 
 app.listen(PORT, ()=>{
