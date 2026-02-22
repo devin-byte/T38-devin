@@ -12,41 +12,62 @@ app.get("/libros",(req,res)=>{
 
 });
 
-app.post("/libros",(req,res)=>{
-const{titulo,autor,anioPublicacion,estado} = req.body;
+app.post("/libros", (req, res) => {
 
-if( !titulo || !autor || !anioPublicacion || !estado){
-    return res.status(400).json({
-        status:400,
-        message:"todos los campos son obligatorios"
+    const { titulo, autor, anioPublicacion, estado } = req.body;
+
+    if (!titulo || !autor || !anioPublicacion || !estado) {
+        return res.status(400).json({
+            status: 400,
+            message: "Todos los campos son obligatorios"
+        });
+    }
+
+    const nuevoLibro = {
+        id: libros.length + 1,
+        titulo,
+        autor,
+        anioPublicacion,
+        estado
+    };
+
+    libros.push(nuevoLibro);
+
+    res.status(201).json({
+        status: 201,
+        message: "Libro agregado",
+        data: nuevoLibro
     });
-}
-const nuevolibro={
-    id: libros.length + 1,
-    titulo,
-    autor,
-    anioPublicacion: parseInt(anioPublicacion),
-    estado
-};
-libros.push(nuevolibro);
-res.status(201).json({
-    status:201,
-    message:"libro creado",
-    data:nuevolibro
-})
 });
 
-app.put("/libros/:id",(req,res)=>{
-    const id=parseInt(req.params.id);
-   const libro = libros.find(l => l.id === id);
 
-   if (!libro) {
+app.put("/libros/:id", (req, res) => {
+
+    const id = parseInt(req.params.id);
+
+    const libro = libros.find(l => l.id === id);
+
+    if (!libro) {
         return res.status(404).json({
             status: 404,
             message: "Libro no encontrado"
         });
     }
-})
+
+    const { titulo, autor, anioPublicacion, estado } = req.body;
+
+    if (titulo !== undefined) libro.titulo = titulo;
+    if (autor !== undefined) libro.autor = autor;
+    if (anioPublicacion !== undefined) libro.anioPublicacion = anioPublicacion;
+    if (estado !== undefined) libro.estado = estado;
+
+    res.status(200).json({
+        status: 200,
+        message: "Libro actualizado",
+        data: libro
+    });
+});
+
 
 app.listen(PORT, ()=>{
     console.log(`Escuchando en http://localhost:${PORT}/`);
